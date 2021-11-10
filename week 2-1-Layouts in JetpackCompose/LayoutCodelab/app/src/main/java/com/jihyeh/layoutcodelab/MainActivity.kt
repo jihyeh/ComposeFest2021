@@ -18,6 +18,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.AlignmentLine
 import androidx.compose.ui.layout.FirstBaseline
 import androidx.compose.ui.layout.Layout
@@ -36,9 +37,67 @@ class MainActivity : ComponentActivity() {
         setContent {
             LayoutCodelabTheme {
                 // A surface container using the 'background' color from the theme
-                BodyContentMyOwn()
+                BodyContentStaggerGrid()
             }
         }
+    }
+}
+
+val topics = listOf(
+    "Arts & Crafts", "Beauty", "Books", "Business", "Comics", "Culinary",
+    "Design", "Fashion", "Film", "History", "Maths", "Music", "People", "Philosophy",
+    "Religion", "Social sciences", "Technology", "TV", "Writing", "Jihye"
+)
+
+@Composable
+fun Chip(modifier: Modifier = Modifier, text: String) {
+    Card(
+        modifier = modifier,
+        border = BorderStroke(color = Color.Black, width = Dp.Hairline),
+        shape = RoundedCornerShape(8.dp)
+    ) {
+        Row(
+            modifier = Modifier.padding(start = 8.dp, top = 4.dp, end = 8.dp, bottom = 4.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(16.dp, 16.dp)
+                    .background(color = MaterialTheme.colors.secondary)
+            )
+            Spacer(Modifier.width(4.dp))
+            Text(text = text)
+        }
+    }
+}
+
+@Preview
+@Composable
+fun ChipPreview() {
+    LayoutCodelabTheme {
+        Chip(text = "Hi there")
+    }
+}
+
+@Composable
+fun BodyContentStaggerGrid(modifier: Modifier = Modifier) {
+    Row(modifier = modifier.horizontalScroll(rememberScrollState())) {
+        StaggerGrid(modifier, rows = 5) {
+            for (topic in topics) {
+                Chip(
+                    modifier = modifier.padding(8.dp),
+                    text = topic
+                )
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun BodyContentStaggerGridPreview() {
+    LayoutCodelabTheme {
+        BodyContentStaggerGrid()
     }
 }
 
