@@ -81,16 +81,21 @@ fun ChipPreview() {
 
 @Composable
 fun BodyContentStaggerGrid(modifier: Modifier = Modifier) {
-    Row(modifier = modifier.horizontalScroll(rememberScrollState())) {
-        StaggerGrid(modifier, rows = 5) {
-            for (topic in topics) {
-                Chip(
-                    modifier = modifier.padding(8.dp),
-                    text = topic
-                )
+    Row(modifier = modifier
+        .background(Color.Yellow)
+        .padding(16.dp)
+        .size(200.dp)
+        .horizontalScroll(rememberScrollState()),
+        content = {
+            StaggerGrid(modifier, rows = 5) {
+                for (topic in topics) {
+                    Chip(
+                        modifier = modifier.padding(8.dp),
+                        text = topic
+                    )
+                }
             }
-        }
-    }
+        })
 }
 
 @Preview
